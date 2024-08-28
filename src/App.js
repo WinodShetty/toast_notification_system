@@ -1,13 +1,25 @@
+// src/App.js
 import React from 'react';
-import { ToastProvider } from './components/ToastProvider';
-import './App.css';
+import { ToastProvider, useToast } from './components/ToastContext';
 
-function App() {
+const App = () => {
+  const showToast = useToast();
+
+  const handleShowToast = () => {
+    showToast('This is a success message!', 'success', 'top-right', 5000);
+  };
+
   return (
-    <ToastProvider>
-      
-    </ToastProvider>
+    <div>
+      <button onClick={handleShowToast}>Show Toast</button>
+    </div>
   );
-}
+};
 
-export default App;
+const Root = () => (
+  <ToastProvider>
+    <App />
+  </ToastProvider>
+);
+
+export default Root;

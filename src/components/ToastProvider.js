@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
-import { createPortal } from 'react-dom';
+import ReactDOM from 'react-dom';
 import Toast from './Toast';
-import ToastContainer from './styles/ToastContainer';
+import '../styles/ToastProvider.css'; 
 
 const ToastContext = createContext();
 
@@ -20,14 +20,14 @@ export const ToastProvider = ({ children }) => {
   return (
     <ToastContext.Provider value={{ addToast }}>
       {children}
-      {createPortal(
-        <ToastContainer>
+      {ReactDOM.createPortal(
+        <div className="toast-container">
           {toasts.map(toast => (
             <Toast key={toast.id} type={toast.type}>
               {toast.message}
             </Toast>
           ))}
-        </ToastContainer>,
+        </div>,
         document.body
       )}
     </ToastContext.Provider>
